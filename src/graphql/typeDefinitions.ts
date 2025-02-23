@@ -18,6 +18,10 @@ export const typeDefs = /* GraphQL */ `
 
   type Query {
     hello: String
+  }
 
+  type Mutation {
+    createSomething(input: CreateSomethingInput!): Something!
+    createTodo(title: String!): Todo!
   }
 `;
