@@ -21,6 +21,7 @@ export const typeDefs = /* GraphQL */ `
     getAllTodos: [Todo!]!
     getCompletedTodos: [Todo!]!
     getIncompleteTodos: [Todo!]!
+    getTodoById(id: ID!): Todo
   }
 
   type Mutation {

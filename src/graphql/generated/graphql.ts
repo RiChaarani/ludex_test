@@ -61,7 +61,13 @@ export type Query = {
   getAllTodos: Array<Todo>;
   getCompletedTodos: Array<Todo>;
   getIncompleteTodos: Array<Todo>;
+  getTodoById?: Maybe<Todo>;
   hello?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type QueryGetTodoByIdArgs = {
+  id: Scalars['ID']['input'];
 };
 
 export type Something = {
@@ -184,6 +190,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getAllTodos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
   getCompletedTodos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
   getIncompleteTodos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
+  getTodoById?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<QueryGetTodoByIdArgs, 'id'>>;
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
 

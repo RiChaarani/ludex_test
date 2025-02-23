@@ -27,4 +27,13 @@ export const Query: IQuery<Context> = {
       updatedAt: todo.updatedAt.toISOString(),
     }));
   },
+  getTodoById: async (_, { id }, context) => {
+    const todo = await context.prisma.todo.findUnique({ where: { id } });
+    if (!todo) return null;
+    return {
+      ...todo,
+      createdAt: todo.createdAt.toISOString(),
+      updatedAt: todo.updatedAt.toISOString(),
+    };
+  },
 };
