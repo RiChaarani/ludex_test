@@ -19,6 +19,8 @@ export const typeDefs = /* GraphQL */ `
   type Query {
     hello: String
     getAllTodos: [Todo!]!
+    getCompletedTodos: [Todo!]!
+    getIncompleteTodos: [Todo!]!
   }
 
   type Mutation {
