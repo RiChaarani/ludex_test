@@ -23,6 +23,7 @@ export type CreateSomethingInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createSomething: Something;
+  createTodo: Todo;
 };
 
 
@@ -30,8 +31,14 @@ export type MutationCreateSomethingArgs = {
   input: CreateSomethingInput;
 };
 
+
+export type MutationCreateTodoArgs = {
+  title: Scalars['String']['input'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  getAllTodos: Array<Todo>;
   hello?: Maybe<Scalars['String']['output']>;
 };
 
@@ -145,9 +152,11 @@ export type ResolversParentTypes = {
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createSomething?: Resolver<ResolversTypes['Something'], ParentType, ContextType, RequireFields<MutationCreateSomethingArgs, 'input'>>;
+  createTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationCreateTodoArgs, 'title'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getAllTodos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
 
