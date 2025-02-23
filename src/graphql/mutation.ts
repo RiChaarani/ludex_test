@@ -34,4 +34,22 @@ export const Mutation: IMutation<Context> = {
       throw new Error("Failed to create todo");
     }
   },
+
+  updateTodoTitle: async (_, { id, title }, { prisma }) => {
+    try {
+      const todo = await prisma.todo.update({
+        where: { id },
+        data: { title },
+      });
+
+      return {
+        ...todo,
+        createdAt: todo.createdAt.toISOString(),
+        updatedAt: todo.updatedAt.toISOString(),
+      };
+    } catch (error) {
+      console.error("Error updating todo title:", error);
+      throw new Error("Failed to update todo title");
+    }
+  },
 };

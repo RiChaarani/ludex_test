@@ -24,5 +24,6 @@ export const typeDefs = /* GraphQL */ `
   type Mutation {
     createSomething(input: CreateSomethingInput!): Something!
     createTodo(title: String!): Todo!
+    updateTodoTitle(id: ID!, title: String!): Todo!
   }
 `;
