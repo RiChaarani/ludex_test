@@ -70,4 +70,17 @@ export const Mutation: IMutation<Context> = {
       throw new Error("Failed to mark todo as completed");
     }
   },
+
+  deleteTodo: async (_, { id }, { prisma }) => {
+    try {
+      await prisma.todo.delete({
+        where: { id },
+      });
+
+      return true;
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+      throw new Error("Failed to delete todo");
+    }
+  },
 };

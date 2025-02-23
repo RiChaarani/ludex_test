@@ -26,5 +26,6 @@ export const typeDefs = /* GraphQL */ `
     createTodo(title: String!): Todo!
     updateTodoTitle(id: ID!, title: String!): Todo!
     markTodoCompleted(id: ID!, completed: Boolean!): Todo!
+    deleteTodo(id: ID!): Boolean!
   }
 `;
