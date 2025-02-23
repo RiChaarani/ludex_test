@@ -52,4 +52,22 @@ export const Mutation: IMutation<Context> = {
       throw new Error("Failed to update todo title");
     }
   },
+
+  markTodoCompleted: async (_, { id, completed }, { prisma }) => {
+    try {
+      const todo = await prisma.todo.update({
+        where: { id },
+        data: { completed },
+      });
+
+      return {
+        ...todo,
+        createdAt: todo.createdAt.toISOString(),
+        updatedAt: todo.updatedAt.toISOString(),
+      };
+    } catch (error) {
+      console.error("Error marking todo as completed:", error);
+      throw new Error("Failed to mark todo as completed");
+    }
+  },
 };
