@@ -1,5 +1,6 @@
 import { type MutationResolvers as IMutation } from "./generated/graphql";
 import { Context } from "./context";
+import { GraphQLError } from "graphql";
 
 export const Mutation: IMutation<Context> = {
   createSomething: async (_, { input }, { prisma }) => {
@@ -16,6 +17,14 @@ export const Mutation: IMutation<Context> = {
   },
 
   createTodo: async (_, { input }, { prisma }) => {
+    if (!input.title || input.title.trim() === "") {
+      throw new GraphQLError("Title cannot be empty", {
+        extensions: {
+          code: "BAD_USER_INPUT",
+          field: "title",
+        },
+      });
+    }
     try {
       const todo = await prisma.todo.create({
         data: {
