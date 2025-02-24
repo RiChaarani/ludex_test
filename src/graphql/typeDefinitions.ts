@@ -3,6 +3,24 @@ export const typeDefs = /* GraphQL */ `
     name: String!
   }
 
+  input CreateTodoInput {
+    title: String!
+  }
+
+  input UpdateTodoTitleInput {
+    id: ID!
+    title: String!
+  }
+
+  input MarkTodoCompletedInput {
+    id: ID!
+    completed: Boolean!
+  }
+
+  input DeleteTodoInput {
+    id: ID!
+  }
+
   type Something {
     id: ID!
     name: String!
@@ -26,9 +44,9 @@ export const typeDefs = /* GraphQL */ `
 
   type Mutation {
     createSomething(input: CreateSomethingInput!): Something!
-    createTodo(title: String!): Todo!
-    updateTodoTitle(id: ID!, title: String!): Todo!
-    markTodoCompleted(id: ID!, completed: Boolean!): Todo!
-    deleteTodo(id: ID!): Boolean!
+    createTodo(input: CreateTodoInput!): Todo!
+    updateTodoTitle(input: UpdateTodoTitleInput!): Todo!
+    markTodoCompleted(input: MarkTodoCompletedInput!): Todo!
+    deleteTodo(input: DeleteTodoInput!): Boolean!
   }
 `;

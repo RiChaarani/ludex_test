@@ -20,6 +20,19 @@ export type CreateSomethingInput = {
   name: Scalars['String']['input'];
 };
 
+export type CreateTodoInput = {
+  title: Scalars['String']['input'];
+};
+
+export type DeleteTodoInput = {
+  id: Scalars['ID']['input'];
+};
+
+export type MarkTodoCompletedInput = {
+  completed: Scalars['Boolean']['input'];
+  id: Scalars['ID']['input'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createSomething: Something;
@@ -36,24 +49,22 @@ export type MutationCreateSomethingArgs = {
 
 
 export type MutationCreateTodoArgs = {
-  title: Scalars['String']['input'];
+  input: CreateTodoInput;
 };
 
 
 export type MutationDeleteTodoArgs = {
-  id: Scalars['ID']['input'];
+  input: DeleteTodoInput;
 };
 
 
 export type MutationMarkTodoCompletedArgs = {
-  completed: Scalars['Boolean']['input'];
-  id: Scalars['ID']['input'];
+  input: MarkTodoCompletedInput;
 };
 
 
 export type MutationUpdateTodoTitleArgs = {
-  id: Scalars['ID']['input'];
-  title: Scalars['String']['input'];
+  input: UpdateTodoTitleInput;
 };
 
 export type Query = {
@@ -83,6 +94,11 @@ export type Todo = {
   id: Scalars['ID']['output'];
   title: Scalars['String']['output'];
   updatedAt: Scalars['String']['output'];
+};
+
+export type UpdateTodoTitleInput = {
+  id: Scalars['ID']['input'];
+  title: Scalars['String']['input'];
 };
 
 
@@ -158,32 +174,40 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CreateSomethingInput: CreateSomethingInput;
+  CreateTodoInput: CreateTodoInput;
+  DeleteTodoInput: DeleteTodoInput;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  MarkTodoCompletedInput: MarkTodoCompletedInput;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Something: ResolverTypeWrapper<Something>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Todo: ResolverTypeWrapper<Todo>;
+  UpdateTodoTitleInput: UpdateTodoTitleInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   CreateSomethingInput: CreateSomethingInput;
+  CreateTodoInput: CreateTodoInput;
+  DeleteTodoInput: DeleteTodoInput;
   ID: Scalars['ID']['output'];
+  MarkTodoCompletedInput: MarkTodoCompletedInput;
   Mutation: {};
   Query: {};
   Something: Something;
   String: Scalars['String']['output'];
   Todo: Todo;
+  UpdateTodoTitleInput: UpdateTodoTitleInput;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createSomething?: Resolver<ResolversTypes['Something'], ParentType, ContextType, RequireFields<MutationCreateSomethingArgs, 'input'>>;
-  createTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationCreateTodoArgs, 'title'>>;
-  deleteTodo?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteTodoArgs, 'id'>>;
-  markTodoCompleted?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationMarkTodoCompletedArgs, 'completed' | 'id'>>;
-  updateTodoTitle?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationUpdateTodoTitleArgs, 'id' | 'title'>>;
+  createTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationCreateTodoArgs, 'input'>>;
+  deleteTodo?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteTodoArgs, 'input'>>;
+  markTodoCompleted?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationMarkTodoCompletedArgs, 'input'>>;
+  updateTodoTitle?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationUpdateTodoTitleArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

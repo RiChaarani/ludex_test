@@ -15,11 +15,11 @@ export const Mutation: IMutation<Context> = {
     };
   },
 
-  createTodo: async (_, { title }, { prisma }) => {
+  createTodo: async (_, { input }, { prisma }) => {
     try {
       const todo = await prisma.todo.create({
         data: {
-          title,
+          title: input.title,
           completed: false,
         },
       });
@@ -35,11 +35,11 @@ export const Mutation: IMutation<Context> = {
     }
   },
 
-  updateTodoTitle: async (_, { id, title }, { prisma }) => {
+  updateTodoTitle: async (_, { input  }, { prisma }) => {
     try {
       const todo = await prisma.todo.update({
-        where: { id },
-        data: { title },
+        where: { id: input.id },
+        data: { title: input.title },
       });
 
       return {
@@ -53,11 +53,11 @@ export const Mutation: IMutation<Context> = {
     }
   },
 
-  markTodoCompleted: async (_, { id, completed }, { prisma }) => {
+  markTodoCompleted: async (_, { input }, { prisma }) => {
     try {
       const todo = await prisma.todo.update({
-        where: { id },
-        data: { completed },
+        where: { id: input.id },
+        data: { completed: input.completed },
       });
 
       return {
@@ -71,10 +71,10 @@ export const Mutation: IMutation<Context> = {
     }
   },
 
-  deleteTodo: async (_, { id }, { prisma }) => {
+  deleteTodo: async (_, { input }, { prisma }) => {
     try {
       await prisma.todo.delete({
-        where: { id },
+        where: { id: input.id },
       });
 
       return true;
