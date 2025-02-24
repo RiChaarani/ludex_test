@@ -92,6 +92,39 @@ export const Mutation: IMutation<Context> = {
   },
 
   markTodoCompleted: async (_, { input }, { prisma }) => {
+    if (!input.id || input.id.trim() === "") {
+      throw new GraphQLError("ID cannot be empty", {
+        extensions: {
+          code: "BAD_USER_INPUT",
+          field: "id",
+        },
+      });
+    }
+
+    if (typeof input.completed !== "boolean") {
+      throw new GraphQLError("Completed must be a boolean", {
+        extensions: {
+          code: "BAD_USER_INPUT",
+          field: "completed",
+        },
+      });
+    }
+  
+
+    const existingTodo = await prisma.todo.findUnique({
+      where: { id: input.id },
+    });
+
+    if (!existingTodo) {
+      throw new GraphQLError("Todo not found", {
+        extensions: {
+          code: "NOT_FOUND",
+          field: "id",
+        },
+      });
+    }
+
+
     try {
       const todo = await prisma.todo.update({
         where: { id: input.id },
