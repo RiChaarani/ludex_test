@@ -19,7 +19,9 @@ export const Query: IQuery<Context> = {
 
   getCompletedTodos: async (_, __, context) => {
     try {
-      const todos = await context.prisma.todo.findMany({ where: { completed: true } });
+      const todos = await context.prisma.todo.findMany({
+        where: { completed: true },
+      });
       return todos.map((todo) => ({
         ...todo,
         createdAt: todo.createdAt.toISOString(),
@@ -33,7 +35,9 @@ export const Query: IQuery<Context> = {
 
   getIncompleteTodos: async (_, __, context) => {
     try {
-      const todos = await context.prisma.todo.findMany({ where: { completed: false } });
+      const todos = await context.prisma.todo.findMany({
+        where: { completed: false },
+      });
       return todos.map((todo) => ({
         ...todo,
         createdAt: todo.createdAt.toISOString(),

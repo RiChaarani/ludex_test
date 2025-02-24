@@ -44,7 +44,7 @@ export const Mutation: IMutation<Context> = {
     }
   },
 
-  updateTodoTitle: async (_, { input  }, { prisma }) => {
+  updateTodoTitle: async (_, { input }, { prisma }) => {
     if (!input.id || input.id.trim() === "") {
       throw new GraphQLError("ID cannot be empty", {
         extensions: {
@@ -74,7 +74,6 @@ export const Mutation: IMutation<Context> = {
       });
     }
     try {
-
       const todo = await prisma.todo.update({
         where: { id: input.id },
         data: { title: input.title },
@@ -109,7 +108,6 @@ export const Mutation: IMutation<Context> = {
         },
       });
     }
-  
 
     const existingTodo = await prisma.todo.findUnique({
       where: { id: input.id },
@@ -123,7 +121,6 @@ export const Mutation: IMutation<Context> = {
         },
       });
     }
-
 
     try {
       const todo = await prisma.todo.update({
@@ -151,7 +148,7 @@ export const Mutation: IMutation<Context> = {
         },
       });
     }
-    
+
     const existingTodo = await prisma.todo.findUnique({
       where: { id: input.id },
     });
