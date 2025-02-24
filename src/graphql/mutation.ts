@@ -45,7 +45,36 @@ export const Mutation: IMutation<Context> = {
   },
 
   updateTodoTitle: async (_, { input  }, { prisma }) => {
+    if (!input.id || input.id.trim() === "") {
+      throw new GraphQLError("ID cannot be empty", {
+        extensions: {
+          code: "BAD_USER_INPUT",
+          field: "id",
+        },
+      });
+    }
+    if (!input.title || input.title.trim() === "") {
+      throw new GraphQLError("Title cannot be empty", {
+        extensions: {
+          code: "BAD_USER_INPUT",
+          field: "title",
+        },
+      });
+    }
+    const existingTodo = await prisma.todo.findUnique({
+      where: { id: input.id },
+    });
+
+    if (!existingTodo) {
+      throw new GraphQLError("Todo not found", {
+        extensions: {
+          code: "NOT_FOUND",
+          field: "id",
+        },
+      });
+    }
     try {
+
       const todo = await prisma.todo.update({
         where: { id: input.id },
         data: { title: input.title },
